@@ -7,10 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ChallangeSpringApplication {
     public static void main(String[] args) {
-
-        Menu app = new Menu();
-        app.showMenu();
-
+        SpringApplication.run(ChallangeSpringApplication.class, args);
     }
 
 }
