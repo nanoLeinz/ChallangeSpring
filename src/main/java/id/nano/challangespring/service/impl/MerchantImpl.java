@@ -6,6 +6,7 @@ import id.nano.challangespring.service.MerchantService;
 import id.nano.challangespring.utils.ResponseHandler;
 import id.nano.challangespring.utils.SimpleStringUtils;
 import jakarta.persistence.criteria.Predicate;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 
 @Service
 public class MerchantImpl implements MerchantService {
@@ -27,6 +29,7 @@ public class MerchantImpl implements MerchantService {
     @Override
     public ResponseEntity<Object> insert(Merchant merchant) {
         Merchant data = merchantRepository.save(merchant);
+
         return ResponseHandler.generateResponse("Inserted Successfully", HttpStatus.OK, data);
     }
 
@@ -58,6 +61,7 @@ public class MerchantImpl implements MerchantService {
     public ResponseEntity<Object> getById(UUID id) {
         try {
             Optional<Merchant> data = merchantRepository.findById(id);
+
             return ResponseHandler.generateResponse("Success", HttpStatus.OK, data.get());
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
