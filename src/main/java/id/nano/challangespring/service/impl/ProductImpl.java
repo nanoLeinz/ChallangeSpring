@@ -37,7 +37,7 @@ public class ProductImpl implements ProductService {
             product.setMerchant(merchant.get());
             return ResponseHandler.generateResponse("Inserted Successfully", HttpStatus.OK, productRepository.save(product));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, e);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, e);
         }
     }
 
@@ -67,7 +67,7 @@ public class ProductImpl implements ProductService {
             data.get().setPrice(product.getPrice());
             return ResponseHandler.generateResponse("Updated Successfully", HttpStatus.OK, productRepository.save(data.get()));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -80,7 +80,7 @@ public class ProductImpl implements ProductService {
             data.get().setDeletedDate(new Date());
             return ResponseHandler.generateResponse("Deleted Successfully", HttpStatus.OK, productRepository.save(data.get()));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
     @Override

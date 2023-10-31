@@ -1,15 +1,16 @@
 package id.nano.challangespring.service;
 
 import id.nano.challangespring.entity.Order;
+import id.nano.challangespring.entity.Product;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
+import java.util.UUID;
 
 public interface OrderService {
-    public Map insert(Order order);
+    public ResponseEntity<Object> insert(UUID userId, Order order);
 
-    public Map update(Order Order);
+    public ResponseEntity<Object> delete(UUID id);
 
-    public Map delete(Long id);
-
-    public Map getById(Long id);
+    public ResponseEntity<Object> getById(UUID id);
 }

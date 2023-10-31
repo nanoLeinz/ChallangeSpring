@@ -13,6 +13,7 @@ import org.hibernate.annotations.Where;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -22,8 +23,8 @@ import java.util.Date;
 @Where(clause = "deleted_date is null")
 public class Order extends AbstractDate implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @NotNull
     @NotBlank
@@ -37,7 +38,6 @@ public class Order extends AbstractDate implements Serializable {
     private Date orderTime;
 
     @NotNull
-    @NotBlank
     private Boolean completed;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

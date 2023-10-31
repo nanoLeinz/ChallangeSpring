@@ -35,7 +35,7 @@ public class UserImpl implements UserService {
             data.setPassword(user.getPassword());
             return ResponseHandler.generateResponse("Updated Successfully", HttpStatus.OK, userRepository.save(data));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -48,7 +48,7 @@ public class UserImpl implements UserService {
             data.get().setDeletedDate(new Date());
             return ResponseHandler.generateResponse("Deleted Successfully", HttpStatus.OK, userRepository.save(data.get()));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -58,7 +58,7 @@ public class UserImpl implements UserService {
             Optional<User> data = userRepository.findById(id);
             return ResponseHandler.generateResponse("Success", HttpStatus.OK, data.get());
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 

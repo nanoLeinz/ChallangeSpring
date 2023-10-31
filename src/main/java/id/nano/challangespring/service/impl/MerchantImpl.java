@@ -39,7 +39,7 @@ public class MerchantImpl implements MerchantService {
             data.setMerchantLocation(merchant.getMerchantLocation());
             return ResponseHandler.generateResponse("Updated Successfully", HttpStatus.OK, merchantRepository.save(data));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse("Data Not Found", HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -50,7 +50,7 @@ public class MerchantImpl implements MerchantService {
             data.get().setDeletedDate(new Date());
             return ResponseHandler.generateResponse("Deleted Successfully", HttpStatus.OK, merchantRepository.save(data.get()));
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -60,7 +60,7 @@ public class MerchantImpl implements MerchantService {
             Optional<Merchant> data = merchantRepository.findById(id);
             return ResponseHandler.generateResponse("Success", HttpStatus.OK, data.get());
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
@@ -70,7 +70,7 @@ public class MerchantImpl implements MerchantService {
             List<Merchant> data = merchantRepository.findAll();
             return ResponseHandler.generateResponse("Success", HttpStatus.OK, data);
         } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
