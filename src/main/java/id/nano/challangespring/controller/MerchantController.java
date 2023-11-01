@@ -3,7 +3,10 @@ package id.nano.challangespring.controller;
 
 import id.nano.challangespring.entity.Merchant;
 import id.nano.challangespring.service.MerchantService;
+import id.nano.challangespring.service.impl.MerchantImpl;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import java.util.UUID;
 public class MerchantController {
     @Autowired
     public MerchantService merchantService;
+
     @PostMapping(value = {"/merchant", "/merchant/"})
     public ResponseEntity<Object> saveMerchant(@RequestBody @Valid Merchant request) {
         return merchantService.insert(request);

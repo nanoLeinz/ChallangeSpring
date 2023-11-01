@@ -10,6 +10,8 @@ import id.nano.challangespring.repository.OrderRepository;
 import id.nano.challangespring.repository.ProductRepository;
 import id.nano.challangespring.service.OrderDetailService;
 import id.nano.challangespring.utils.ResponseHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ public class OrderDetailImpl implements OrderDetailService {
 
     @Autowired
     public OrderDetailRepository orderDetailRepository;
+    private static final Logger logger = LoggerFactory.getLogger(OrderDetailImpl.class);
 
     @Override
     public ResponseEntity<Object> insert(UUID orderId, List<OrderDetailDto> products) {
@@ -51,12 +54,14 @@ public class OrderDetailImpl implements OrderDetailService {
                             orderDetail.setQuantity(orderDetailDto.getQuantity());
                             orderDetail.setOrder(orderOptional.get());
                             orderDetail.setProduct(product);
+                            logger.info("Inserted Succesfully : " + orderDetail);
                             orderDetailRepository.save(orderDetail);
                         });
                     }
             );
             return ResponseHandler.generateResponse("Inserted Successfully", HttpStatus.OK, insertedProduct);
         } catch (Exception e) {
+            logger.warn("Failed to insert : " + e.getLocalizedMessage());
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, e.getLocalizedMessage());
         }
     }
@@ -68,8 +73,10 @@ public class OrderDetailImpl implements OrderDetailService {
 //            List<OrderDetail> listOrderDetail = orderDetailRepository.findByOrder_Id(id);
             if (listOrderDetail.isEmpty())
                 return ResponseHandler.generateResponse("Data Not Found", HttpStatus.NOT_FOUND, null);
+            logger.info("Get Datas : " + listOrderDetail);
             return ResponseHandler.generateResponse("Success", HttpStatus.OK, listOrderDetail);
         } catch (Exception e) {
+            logger.warn("Failed to get data : " + e.getLocalizedMessage());
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, e);
         }
     }
