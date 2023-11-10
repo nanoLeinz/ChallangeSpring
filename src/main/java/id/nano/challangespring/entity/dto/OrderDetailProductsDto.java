@@ -11,4 +11,6 @@ public class OrderDetailProductsDto {
     private final String merchant;
     private final String product;
     private final Integer quantity;
+    private final Integer price;
+    private final Integer priceTotal;
 }

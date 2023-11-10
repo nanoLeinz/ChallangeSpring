@@ -1,5 +1,6 @@
 package id.nano.challangespring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -33,5 +34,6 @@ public class User extends AbstractDate implements Serializable {
 
     @NotNull
     @NotBlank
+    @JsonIgnore
     private String password;
 }

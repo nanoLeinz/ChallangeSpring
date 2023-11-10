@@ -18,7 +18,7 @@ public class OrderDetailDto implements Serializable {
     @NotNull(message = "productId cannot be null")
     private final UUID productId;
 
-    @NotNull(message = "Qantity cannot be null")
+    @NotNull(message = "Quantity cannot be null")
     private final Integer quantity;
 
 }

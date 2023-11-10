@@ -5,6 +5,7 @@ import id.nano.challangespring.entity.OrderDetail;
 import id.nano.challangespring.entity.Product;
 import id.nano.challangespring.entity.dto.OrderDetailDto;
 import id.nano.challangespring.entity.dto.OrderDetailProductsDto;
+import id.nano.challangespring.entity.dto.OrderSummaryDto;
 import id.nano.challangespring.repository.OrderDetailRepository;
 import id.nano.challangespring.repository.OrderRepository;
 import id.nano.challangespring.repository.ProductRepository;
@@ -74,7 +75,16 @@ public class OrderDetailImpl implements OrderDetailService {
             if (listOrderDetail.isEmpty())
                 return ResponseHandler.generateResponse("Data Not Found", HttpStatus.NOT_FOUND, null);
             logger.info("Get Datas : " + listOrderDetail);
-            return ResponseHandler.generateResponse("Success", HttpStatus.OK, listOrderDetail);
+            OrderSummaryDto summary = new OrderSummaryDto();
+
+            Integer tp = listOrderDetail.stream().mapToInt(x -> x.getPriceTotal())
+                            .sum();
+            Integer tq = listOrderDetail.stream().mapToInt(x -> x.getQuantity())
+                    .sum();
+            summary.setDetailProducts(listOrderDetail);
+            summary.setTotalPayment(tp);
+            summary.setTotalItems(tq);
+            return ResponseHandler.generateResponse("Success", HttpStatus.OK, summary);
         } catch (Exception e) {
             logger.warn("Failed to get data : " + e.getLocalizedMessage());
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_GATEWAY, e);

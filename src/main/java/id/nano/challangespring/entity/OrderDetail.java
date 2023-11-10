@@ -23,7 +23,7 @@ import java.util.UUID;
 @Table(name = "order_detail")
 @Where(clause = "deleted_date is null")
 @NamedNativeQuery(name = "find_all_product_on_order",
-        query = "SELECT c.merchant_name, b.product_name, a.quantity FROM order_detail a LEFT JOIN product b on a.product_id = b.id LEFT JOIN merchant c on b.merchant_id = c.id WHERE a.order_id = (:idOrder)",
+        query = "SELECT c.merchant_name, b.product_name, a.quantity, b.price,  a.quantity * b.price as total  FROM order_detail a LEFT JOIN product b on a.product_id = b.id LEFT JOIN merchant c on b.merchant_id = c.id WHERE a.order_id = (:idOrder)",
         resultSetMapping = "orderdetailproductdto"
         )
 @SqlResultSetMapping(name = "orderdetailproductdto",
@@ -32,7 +32,9 @@ import java.util.UUID;
                 columns = {
                         @ColumnResult(name = "merchant_name", type = String.class),
                         @ColumnResult(name = "product_name", type = String.class),
-                        @ColumnResult(name = "quantity", type = Integer.class)
+                        @ColumnResult(name = "quantity", type = Integer.class),
+                        @ColumnResult(name = "price", type = Integer.class),
+                        @ColumnResult(name = "total", type = Integer.class)
                 }
         ))
 public class OrderDetail extends AbstractDate implements Serializable {

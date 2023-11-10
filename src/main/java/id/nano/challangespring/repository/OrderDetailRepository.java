@@ -18,7 +18,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, UUID>,
     List<OrderDetail> findByOrder_Id(UUID id);
 
     @Query(name = "find_all_product_on_order",nativeQuery = true)
-    public List<OrderDetailProductsDto> getAllProductOnOrder(@Param("idOrder") UUID idOrder);
+    List<OrderDetailProductsDto> getAllProductOnOrder(@Param("idOrder") UUID idOrder);
 
     @Procedure(procedureName = "get_order_details")
     int getAllProductOnOrderId(UUID idOrder);
